@@ -24,25 +24,5 @@ namespace APITienda.Controllers
         data = JsonConvert.DeserializeObject<List<ProductModel>>(jsonProductos)
       };
     }
-
-    [HttpPost]
-    [Route("agregar")]
-    public dynamic AgregarProducto (ProductModel product)
-    {
-      List<Parametro> parametros = new List<Parametro>
-      {
-        new Parametro("@descriptionSP", product.description),
-        new Parametro("@priceSP", product.price.ToString()),
-        new Parametro("@detailSP", product.detail),
-        new Parametro("@imageSP", product.image),
-      };
-      bool exito = ConectionBD.Ejecutar("insertProduct_SP", parametros);
-      return new
-      {
-        codigoRetorno = "0001",
-        mensajeRetorno = exito ? "Se ha guardado" : "Error al guardar",
-        data = ""
-      };
-    }
   }
 }
